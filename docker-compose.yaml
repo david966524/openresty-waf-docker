@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  openresty-waf:
+    container_name: openresty-waf
+    image: openresty/openresty
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./nginx.conf:/usr/local/openresty/nginx/conf/nginx.conf
+      - ./waf:/usr/local/openresty/nginx/conf/waf    
+      - ./conf.d:/etc/nginx/conf.d      
+      - ./html:/usr/local/openresty/nginx/html
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 20000
+        hard: 40000
